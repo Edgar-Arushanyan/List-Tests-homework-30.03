@@ -12,7 +12,7 @@ class MainTest {
 
     private Main m;
 
-    @BeforeEach
+    @BeforeEach  // всегда инициализируем @BeforeEach перед тестами
     public void init() {
         m = new Main();
     }
@@ -44,8 +44,8 @@ class MainTest {
 
     @Test
     public void isWithoutMoreThanRequired_test() {
-        List<Integer> expected = Arrays.asList(1, 5, 3, 2);
-        List<Integer> actual = Arrays.asList();
+        List<Integer> actual = Arrays.asList(1, 5, 3, 2);
+        List<Integer> expected = Arrays.asList(1,3,2);
 
         assertEquals(expected, m.isWithoutMoreThanRequired(actual, 4));
 
@@ -54,7 +54,7 @@ class MainTest {
     //----------------------------------- Aufgabe 2 ----------------------------
 
     @Test
-    public void findMinOrMax_test (){
+    public void findMinOrMax_test () throws EmptyListException {
         List<String> actual = Arrays.asList("bb", "a" ,"ddd");
         String expected = "a";
 
@@ -63,7 +63,7 @@ class MainTest {
     }
 
     @Test
-    public void findMinOrMax_test_1 () {
+    public void findMinOrMax_test_1 () throws EmptyListException {
         List<String> actual = Arrays.asList("a", "ddd", "bb");
         String expected = "a";
 
@@ -71,7 +71,7 @@ class MainTest {
     }
 
     @Test
-    public void findMinOrMax_test_2 () {
+    public void findMinOrMax_test_2 () throws EmptyListException {
         List<String> actual = Arrays.asList("c", "ddd", "bb", "a");
         String expected = "c";
 
@@ -79,13 +79,42 @@ class MainTest {
     }
 
     @Test
-    public void findMinOrMax_test_3 (){
-        List<String> actual = Arrays.asList("ccc", "ddd", "bb","a");
+    public void findMinOrMax_test_3 () throws EmptyListException {
+        List<String> actual = Arrays.asList("ccc", "ddd", "bb", "a");
         String expected = "ccc";
 
-        assertEquals(expected,m.findMinOrMax(actual));
+        assertEquals(expected, m.findMinOrMax(actual));
+    }
 
+    @Test
+    public void findMinOrMax_test_Elt () throws EmptyListException {
+        // List<String> actual = Arrays.asList("a");
+        //  String expected = "a";
 
+        //  assertEquals(expected,m.findMinOrMax(actual)); // первый вариант
+
+        assertEquals("a", m.findMinOrMax(Arrays.asList("a")));//второй вариант только одной строкой
+
+    }
+
+    @Test
+    public void findMinOrMax_test_schortFirst  ()  throws EmptyListException{
+        List<String> actual = Arrays.asList("bb", "a", "ff", "ddd");
+        assertEquals("a", m.findMinOrMax(actual));
+    }
+
+    @Test
+    public void findMinOrMax_test_longFirst () throws EmptyListException{
+        List<String> actual = Arrays.asList("bb", "aaa", "ff", "d");
+        assertEquals("aaa", m.findMinOrMax(actual));
+    }
+
+    @Test
+    public void findMinOrMax_test_emptyList_throwsException ()  {
+        List<String> actual = Arrays.asList();
+
+        assertThrows(EmptyListException.class,() ->m.findMinOrMax(Arrays.asList()));
+        // особенный случай с assertThrows !!!
 
 
 

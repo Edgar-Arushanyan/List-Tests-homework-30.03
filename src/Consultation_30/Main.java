@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws EmptyListException {
        // Есть список с целыми числами
         // нужно написать метод который вернет список
       //  без элементов, которые больше заданного числа n/
@@ -21,6 +21,7 @@ public class Main {
 
         List<String> list1 = Arrays.asList("bb", "a", "ddd");
         System.out.println(main.findMinOrMax(list1));  // a
+
     }
     public  List<Integer> isWithoutMoreThanRequired (List <Integer> ints , int n ) {
         List<Integer> result = new ArrayList<>();
@@ -32,13 +33,21 @@ public class Main {
         return result;
 
     }
+
+    //------------------------ homework 2- ------------------------------------\\
+
     /* 2. есть лист строк. Написать метод возвразаюший строку которая встречаетсч в листе ранбше
     самую короткую или самую длинную.
     лист не пустой и строки все разные
     bb  a ddd -> a
      */
 
-    public  String findMinOrMax (List<String> strings){
+    public  String findMinOrMax (List<String> strings) throws EmptyListException{
+
+        if (strings.isEmpty()){
+            throw new EmptyListException();
+        }
+
         String shortest = strings.get(0);
         int indexShortest = 0;// 1
         String longest = strings.get(0);
